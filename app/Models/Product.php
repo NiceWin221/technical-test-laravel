@@ -9,7 +9,7 @@ class Product extends Model
 {
     use SoftDeletes, \App\Traits\BelongsToTenant;
 
-    protected $fillable = ['tenant_id', 'name', 'price'];
+    protected $fillable = ['tenant_id', 'item_name', 'item_code', 'price'];
 
     public function tenant()
     {
