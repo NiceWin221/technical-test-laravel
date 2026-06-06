@@ -25,7 +25,7 @@ class DatabaseSeeder extends Seeder
             'tenant_id' => $tenantA->id,
             'name' => 'Budi',
             'email' => 'owner@sinarjaya.com',
-            'password' => bcrypt('password'),
+            'password' => bcrypt('Testing@123'),
             'role' => 'owner',
             'is_accepted' => true,
         ]);
@@ -34,7 +34,7 @@ class DatabaseSeeder extends Seeder
             'tenant_id' => $tenantA->id,
             'name' => 'Andi',
             'email' => 'staff@sinarjaya.com',
-            'password' => bcrypt('password'),
+            'password' => bcrypt('Testing@123'),
             'role' => 'staff',
             'is_accepted' => false,
         ]);
@@ -49,7 +49,7 @@ class DatabaseSeeder extends Seeder
             'tenant_id' => $tenantB->id,
             'name' => 'Siti',
             'email' => 'owner@abadijaya.com',
-            'password' => bcrypt('password'),
+            'password' => bcrypt('Testing@123'),
             'role' => 'owner',
             'is_accepted' => true,
         ]);
@@ -58,7 +58,7 @@ class DatabaseSeeder extends Seeder
             'tenant_id' => $tenantB->id,
             'name' => 'Joko',
             'email' => 'staff@abadijaya.com',
-            'password' => bcrypt('password'),
+            'password' => bcrypt('Testing@123'),
             'role' => 'staff',
             'is_accepted' => false,
         ]);

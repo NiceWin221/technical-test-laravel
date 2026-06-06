@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('tenant_id')->constrained('tenants')->cascadeOnDelete();
             $table->string('item_name');
             $table->string('item_code');
+            $table->decimal('price', 15, 2);
             $table->softDeletes();
             $table->timestamps();
         });
