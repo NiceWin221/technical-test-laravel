@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->string('role')->default('staff');
+            $table->boolean('is_accepted')->default(false);
             $table->rememberToken();
             $table->timestamps();
         });

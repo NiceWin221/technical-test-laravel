@@ -27,6 +27,7 @@ class DatabaseSeeder extends Seeder
             'email' => 'owner@sinarjaya.com',
             'password' => bcrypt('password'),
             'role' => 'owner',
+            'is_accepted' => true,
         ]);
 
         $staffA = User::create([
@@ -35,6 +36,7 @@ class DatabaseSeeder extends Seeder
             'email' => 'staff@sinarjaya.com',
             'password' => bcrypt('password'),
             'role' => 'staff',
+            'is_accepted' => false,
         ]);
 
         // Tenant B
@@ -49,6 +51,7 @@ class DatabaseSeeder extends Seeder
             'email' => 'owner@abadijaya.com',
             'password' => bcrypt('password'),
             'role' => 'owner',
+            'is_accepted' => true,
         ]);
 
         $staffB = User::create([
@@ -57,6 +60,7 @@ class DatabaseSeeder extends Seeder
             'email' => 'staff@abadijaya.com',
             'password' => bcrypt('password'),
             'role' => 'staff',
+            'is_accepted' => false,
         ]);
     }
 }
