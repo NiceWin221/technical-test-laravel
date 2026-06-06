@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Link } from '@inertiajs/vue3';
-import { BookOpen, FolderGit2, LayoutGrid, User, Tent } from '@lucide/vue';
+import { BookOpen, FolderGit2, LayoutGrid, User, Tent, Package } from '@lucide/vue';
 import AppLogo from '@/components/AppLogo.vue';
 import NavFooter from '@/components/NavFooter.vue';
 import NavMain from '@/components/NavMain.vue';
@@ -27,6 +27,11 @@ const mainNavItems: NavItem[] = [
         title: 'Users',
         href: users(),
         icon: User,
+    },
+    {
+        title: 'Products',
+        href: '/products',
+        icon: Package,
     },
     {
         style: "margin-top: auto;",
