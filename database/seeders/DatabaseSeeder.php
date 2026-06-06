@@ -15,11 +15,48 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        // Tenant A
+        $tenantA = \App\Models\Tenant::create([
+            'name' => 'Sinar Jaya Corp',
+            'referral_code' => 'SJ8Nk1IF'
+        ]);
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+        $ownerA = User::create([
+            'tenant_id' => $tenantA->id,
+            'name' => 'Budi',
+            'email' => 'owner@sinarjaya.com',
+            'password' => bcrypt('password'),
+            'role' => 'owner',
+        ]);
+
+        $staffA = User::create([
+            'tenant_id' => $tenantA->id,
+            'name' => 'Andi',
+            'email' => 'staff@sinarjaya.com',
+            'password' => bcrypt('password'),
+            'role' => 'staff',
+        ]);
+
+        // Tenant B
+        $tenantB = \App\Models\Tenant::create([
+            'name' => 'Abadi Jaya Mandiri',
+            'referral_code' => 'AJM88K2S'
+        ]);
+
+        $ownerB = User::create([
+            'tenant_id' => $tenantB->id,
+            'name' => 'Siti',
+            'email' => 'owner@abadijaya.com',
+            'password' => bcrypt('password'),
+            'role' => 'owner',
+        ]);
+
+        $staffB = User::create([
+            'tenant_id' => $tenantB->id,
+            'name' => 'Joko',
+            'email' => 'staff@abadijaya.com',
+            'password' => bcrypt('password'),
+            'role' => 'staff',
         ]);
     }
 }
