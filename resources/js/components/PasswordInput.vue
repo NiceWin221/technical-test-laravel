@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Eye, EyeOff } from '@lucide/vue';
+import { Eye, EyeOff, Lock } from '@lucide/vue';
 import { ref, useTemplateRef } from 'vue';
 import type { HTMLAttributes } from 'vue';
 import { Input } from '@/components/ui/input';
@@ -21,11 +21,14 @@ defineExpose({
 </script>
 
 <template>
-    <div class="relative">
+    <div class="relative flex items-center">
+        <span class="absolute left-3 flex items-center pointer-events-none text-muted-foreground">
+            <Lock class="size-4" />
+        </span>
         <Input
             ref="inputRef"
             :type="showPassword ? 'text' : 'password'"
-            :class="cn('pr-10', props.class)"
+            :class="cn('pl-10 pr-10 w-full', props.class)"
             v-bind="$attrs"
         />
         <button

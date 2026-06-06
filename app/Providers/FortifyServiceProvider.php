@@ -13,6 +13,9 @@ use Illuminate\Validation\Rules\Password;
 use Inertia\Inertia;
 use Laravel\Fortify\Features;
 use Laravel\Fortify\Fortify;
+use Illuminate\Validation\ValidationException;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class FortifyServiceProvider extends ServiceProvider
 {
@@ -32,6 +35,21 @@ class FortifyServiceProvider extends ServiceProvider
         $this->configureActions();
         $this->configureViews();
         $this->configureRateLimiting();
+
+        Fortify::authenticateUsing(function (Request $request) {
+            $user = User::where('email', $request->email)->first();
+
+            if ($user && Hash::check($request->password, $user->password)) {
+                if (!$user->is_accepted) {
+                    throw ValidationException::withMessages([
+                        'message' => ['Your account has not been accepted by the owner yet.'],
+                    ]);
+                }
+                return $user;
+            }
+
+            return null;
+        });
     }
 
     /**
@@ -50,16 +68,6 @@ class FortifyServiceProvider extends ServiceProvider
     {
         Fortify::loginView(fn (Request $request) => Inertia::render('auth/Login', [
             'canResetPassword' => Features::enabled(Features::resetPasswords()),
-            'status' => $request->session()->get('status'),
-        ]));
-
-        Fortify::resetPasswordView(fn (Request $request) => Inertia::render('auth/ResetPassword', [
-            'email' => $request->email,
-            'token' => $request->route('token'),
-            'passwordRules' => Password::defaults()->toPasswordRulesString(),
-        ]));
-
-        Fortify::requestPasswordResetLinkView(fn (Request $request) => Inertia::render('auth/ForgotPassword', [
             'status' => $request->session()->get('status'),
         ]));
 
