@@ -6,7 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Tenant extends Model
 {
-    protected $fillable = ['name'];
+    protected $fillable = ['name', 'referral_code'];
+    protected $hidden = [
+        'id',
+        'updated_at',
+    ];
 
     public function users()
     {

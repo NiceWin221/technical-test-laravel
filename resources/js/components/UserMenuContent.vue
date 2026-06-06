@@ -12,12 +12,31 @@ import { logout } from '@/routes';
 import { edit } from '@/routes/profile';
 import type { User } from '@/types';
 
+import Swal from 'sweetalert2';
+
 type Props = {
     user: User;
 };
 
-const handleLogout = () => {
-    router.flushAll();
+const handleLogout = (e: MouseEvent) => {
+    e.preventDefault();
+    const isDark = document.documentElement.classList.contains('dark');
+    Swal.fire({
+        title: 'Are you sure?',
+        text: 'You will be logged out of your session.',
+        icon: 'question',
+        background: isDark ? '#11131E' : '#ffffff',
+        color: isDark ? '#f4f4f5' : '#09090b',
+        showCancelButton: true,
+        confirmButtonColor: '#0E5FD9',
+        cancelButtonColor: '#ef4444',
+        confirmButtonText: 'Yes, log out',
+        cancelButtonText: 'Cancel'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            router.post(logout().url);
+        }
+    });
 };
 
 defineProps<Props>();
@@ -40,15 +59,13 @@ defineProps<Props>();
     </DropdownMenuGroup>
     <DropdownMenuSeparator />
     <DropdownMenuItem :as-child="true">
-        <Link
-            class="block w-full cursor-pointer"
-            :href="logout()"
+        <button
+            class="flex w-full items-center px-2 py-1.5 cursor-pointer text-sm rounded-sm hover:bg-accent hover:text-accent-foreground"
             @click="handleLogout"
-            as="button"
             data-test="logout-button"
         >
             <LogOut class="mr-2 h-4 w-4" />
             Log out
-        </Link>
+        </button>
     </DropdownMenuItem>
 </template>
