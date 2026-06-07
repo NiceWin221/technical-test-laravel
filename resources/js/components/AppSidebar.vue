@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { Link } from '@inertiajs/vue3';
-import { BookOpen, FolderGit2, LayoutGrid, User, Tent, Package, FileText } from '@lucide/vue';
+import { usePage, Link } from '@inertiajs/vue3';
+import { computed } from 'vue';
+import { BookOpen, FolderGit2, LayoutGrid, User, Tent, Package, FileText, BarChart3 } from '@lucide/vue';
 import AppLogo from '@/components/AppLogo.vue';
 import NavFooter from '@/components/NavFooter.vue';
 import NavMain from '@/components/NavMain.vue';
@@ -17,34 +18,50 @@ import {
 import { dashboard, users, tenants } from '@/routes';
 import type { NavItem } from '@/types';
 
-const mainNavItems: NavItem[] = [
-    {
-        title: 'Dashboard',
-        href: dashboard(),
-        icon: LayoutGrid,
-    },
-    {
-        title: 'Users',
-        href: users(),
-        icon: User,
-    },
-    {
-        title: 'Products',
-        href: '/products',
-        icon: Package,
-    },
-    {
-        title: 'Transactions',
-        href: '/transactions',
-        icon: FileText,
-    },
-    {
+const page = usePage();
+const currentUser = computed(() => page.props.auth.user);
+
+const mainNavItems = computed<NavItem[]>(() => {
+    const items: NavItem[] = [
+        {
+            title: 'Dashboard',
+            href: dashboard(),
+            icon: LayoutGrid,
+        },
+        {
+            title: 'Users',
+            href: users(),
+            icon: User,
+        },
+        {
+            title: 'Products',
+            href: '/products',
+            icon: Package,
+        },
+        {
+            title: 'Transactions',
+            href: '/transactions',
+            icon: FileText,
+        },
+    ];
+
+    if (currentUser.value?.role === 'owner') {
+        items.push({
+            title: 'Reports',
+            href: '/reports',
+            icon: BarChart3,
+        });
+    }
+
+    items.push({
         style: "margin-top: auto;",
         title: 'Tenant',
         href: tenants(),
         icon: Tent,
-    },
-];
+    });
+
+    return items;
+});
 
 const footerNavItems: NavItem[] = [
     {
