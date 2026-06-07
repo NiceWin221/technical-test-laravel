@@ -20,7 +20,7 @@ class ProductController extends Controller
                 });
             })
             ->orderBy('item_name')
-            ->paginate(10)
+            ->paginate(5)
             ->withQueryString();
 
         return Inertia::render('Products', [

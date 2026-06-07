@@ -227,6 +227,7 @@ const formatPrice = (price: number | string) => {
                                         <Pencil class="h-4 w-4" />
                                     </button>
                                     <button
+                                        v-if="currentUser?.role === 'owner'"
                                         @click="handleDelete(product)"
                                         class="p-1.5 text-slate-500 hover:text-red-600 hover:bg-slate-100 dark:text-zinc-400 dark:hover:text-red-400 dark:hover:bg-zinc-800 rounded-lg transition-colors cursor-pointer"
                                         title="Delete Product"
@@ -342,12 +343,14 @@ const formatPrice = (price: number | string) => {
 :deep(input[type="number"]::-webkit-outer-spin-button),
 :deep(input[type="number"]::-webkit-inner-spin-button) {
     -webkit-appearance: none;
+    appearance: none;
     margin: 0;
 }
 
 /* Firefox */
 :deep(input[type="number"]) {
     -moz-appearance: textfield;
+    appearance: textfield;
 }
 </style>
 
