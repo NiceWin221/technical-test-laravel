@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('tenant_id')->constrained('tenants')->cascadeOnDelete();
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
+            $table->string('customer_name');
             $table->decimal('total_amount', 15, 2);
             $table->dateTime('trans_date');
             $table->string('number')->nullable();
